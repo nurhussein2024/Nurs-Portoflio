@@ -1,0 +1,280 @@
+/* Global reset - Nollställer marginaler och utfyllning för alla element */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Standardiserar hur marginaler och utfyllning hanteras */
+  list-style: none; /* Tar bort standard lista-stilar */
+}
+
+/* Definierar färger och andra variabler för enklare användning */
+:root {
+  --color-primary: #0d0e0f;
+  --color-secondary: #20b7e1;
+  --color-white: #FFFFFF;
+  --color-black: #000;
+  --color-grey0: #F8F8F8;
+  --color-grey1: #DBE1E8;
+  --color-grey2: #B2BECD;
+  --color-grey3: #6C7983;
+  --color-grey4: #454e56;
+  --color-grey5: #2A2E35;
+  --color-grey6: #12181B;
+  --br-sm-2: 14px;
+  --box-shadow-1: 0 3px 15px rgba(0,0,0,.3);
+}
+
+body {
+  background-color: var(--color-primary);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: var(--color-white);
+  transition: all .4s ease-in-out; /* Smidig övergång för alla ändringar */
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+  font-family: inherit;
+}
+
+header {
+  height: 100vh;
+  color: var(--color-white);
+  overflow: hidden; /* Förhindrar att innehåll går utanför fönstret */
+}
+
+section {
+  min-height: 100vh;
+  width: 100%;
+  position: relative; /* Justerar position baserat på föräldern */
+  padding: 3rem 18rem;
+  /* Togs bort: position: absolute; eftersom det kan orsaka överlapp */
+}
+
+/* Sektioner med animationer */
+.section {
+  transform: translateY(-100%) scale(0);
+  transition: all .4s ease-in-out;
+  background-color: var(--color-primary);
+}
+
+/* Sektioner som är inaktiva tills de aktiveras */
+.sec1, .sec2, .sec3, .sec4, .sec5 {
+  display: none; /* Gömda tills de aktiveras */
+  transform: translateY(0) scale(1); /* Startposition för animation */
+}
+
+/* Klass för att aktivera sektionerna */
+.active {
+  display: block;
+  animation: scaleAnim 1s ease-in-out;
+}
+
+/* Nyckelbildsanimation för att skala och flytta sektionerna */
+@keyframes scaleAnim {
+  0% {
+    transform: translateY(-100%) scaleY(0);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+/* Kontrollknappar */
+.controlls {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  right: 3%;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(-50%);
+}
+
+.controlls .active-btn {
+  background-color: var(--color-secondary) !important;
+  transition: all .4s ease-in-out;
+}
+
+.controlls .active-btn i {
+  color: var(--color-white) !important;
+}
+
+/* Stilar för kontrollknapparna */
+.controlls .control {
+  padding: 1rem;
+  cursor: pointer;
+  background-color: var(--color-grey4);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .7rem 0;
+  box-shadow: var(--box-shadow-1);
+}
+
+.controlls .control i {
+  font-size: 1.2rem;
+  color: var(--color-grey2);
+  pointer-events: none; /* Förhindrar att ikoner är klickbara */
+}
+
+/* Layout för innehållet i header */
+.header-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  min-height: 100vh;
+}
+
+.header-content .left-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.header-content .left-header .h-shape {
+  transition: all .4s ease-in-out;
+  width: 65%;
+  height: 100%;
+  background-color: var(--color-secondary);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  clip-path: polygon(0 0, 46% 0, 79% 100%, 0% 100%);
+}
+
+.header-content .left-header .image {
+  border-radius: var(--br-sm-2);
+  height: 400px; /* زيادة الحجم إلى 400px */
+  width: 400px; /* زيادة الحجم إلى 400px */
+  margin-left: 4rem; /* يمكنك تعديل الهامش حسب الحاجة */
+  background-color: var(--color-black);
+  transition: all .4s ease-in-out;
+  display: flex; /* أضف هذا السطر */
+  justify-content: center; /* أضف هذا السطر */
+  align-items: center; /* أضف هذا السطر */
+  overflow: hidden; /* أضف هذا السطر */
+}
+
+.header-content .left-header .image img {
+  width: 400%; /* اجعل عرض الصورة 400% من الإطار */
+  height: auto; /* الحفاظ على نسبة الأبعاد */
+  object-fit: cover; /* تأكد من ملاءمة الصورة للإطار */
+  transition: all .4s ease-in-out;
+  filter: grayscale(100%); /* تدرج الصورة إلى اللون الرمادي */
+}
+
+.header-content .left-header .image img:hover {
+  filter: grayscale(0); /* إلغاء تدرج اللون الرمادي عند التحويم */
+}
+
+.header-content .right-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 18rem;
+}
+
+.header-content .right-header .name {
+  font-size: 3rem;
+}
+
+.header-content .right-header .name span {
+  color: var(--color-secondary); /* Accentfärg för namn */
+}
+
+.header-content .right-header p {
+  margin: 1.5rem 0;
+  line-height: 2rem;
+}
+
+.btn-con {
+  display: flex;
+  align-self: flex-start;
+  margin-top: 20px; /* إضافة مسافة بين الزر والنص الذي فوقه */
+  margin-right:10cm; /* إضافة المسافة المطلوبة إلى اليسار */
+ 
+}
+
+
+.main-btn {
+  border-radius: 30px;
+  color: inherit;
+  font-weight: 600;
+  position: relative;
+  border: 1px solid var(--color-secondary);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-btn .btn-text {
+  padding: 0 2rem;
+}
+
+.main-btn .btn-icon {
+  background-color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 1rem;
+}
+
+.main-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: all .4s ease-out;
+  z-index: -1;
+}
+
+.main-btn:hover::before {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-secondary);
+  transform: translateX(0);
+}
+
+/* إعدادات الصورة والإطار */
+.image-container {
+  position: relative;
+  display: inline-block; /* Keep the container as small as the image */
+}
+
+.profile-image {
+  border-radius: 50%; /* اجعل الصورة دائرية */
+  width: 400px; /* زيادة العرض إلى 400 بكسل */
+  height: 400px; /* زيادة الارتفاع إلى 400 بكسل */
+  object-fit: cover; /* تأكد من أن الصورة تغطي المنطقة */
+  position: relative; /* تعيين موضع النسبي للعناصر الفرعية */
+  z-index: 2; /* تأكد من أن الصورة فوق الإطار */
+}
+
+.frame {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%; /* اجعل الإطار دائريًا */
+  background: linear-gradient(45deg, darkblue, red); /* ألوان متدرجة للإطار */
+  animation: rotate 5s linear infinite; /* حركة للإطار */
+  z-index: 1; /* تأكد من أن الإطار تحت الصورة */
+  filter: blur(10px); /* تأثير ضبابي للحصول على نعومة */
+}
+
+@keyframes rotate {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
